@@ -3,6 +3,7 @@ import React, { useState } from "react";
 function PizzaItem({ title, price, doughwidth, diameter, img }) {
   let [doughwidthActive, setDoughwidthActive] = useState(0);
   let [diameterActive, setDiameterActive] = useState(0);
+  let [quantityPizzasInCart, setQuantityPizzasInCart] = useState(0);
 
   let doughwidthArray = doughwidth.map((active) => {
     return (
@@ -43,7 +44,10 @@ function PizzaItem({ title, price, doughwidth, diameter, img }) {
           {Math.floor(price * (1 + diameterActive / 5)) + doughwidthActive * 10}{" "}
           ₽
         </div>
-        <div className="button button--outline button--add">
+        <div
+          onClick={() => setQuantityPizzasInCart(quantityPizzasInCart + 1)}
+          className="button button--outline button--add"
+        >
           <svg
             width="12"
             height="12"
@@ -57,7 +61,7 @@ function PizzaItem({ title, price, doughwidth, diameter, img }) {
             />
           </svg>
           <span>Добавить</span>
-          <i>0</i>
+          {quantityPizzasInCart != 0 ? <i>{quantityPizzasInCart}</i> : ""}
         </div>
       </div>
     </div>
