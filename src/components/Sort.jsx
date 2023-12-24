@@ -6,8 +6,9 @@ import {
 
 function Sort() {
   const dispatch = useDispatch();
-  const { popupBool, popupSortName } = useSelector((state) => state.filter);
-  const PopupArray = ["популярности", "цене min", "цене max"];
+  const { popupBool, popupSortName, PopupArray } = useSelector(
+    (state) => state.filter
+  );
 
   let sortPopupArray = PopupArray.map((popup) => {
     return (

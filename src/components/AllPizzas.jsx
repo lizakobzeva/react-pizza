@@ -1,21 +1,21 @@
-import React, { useContext } from "react";
 import PizzaItem from "./PizzaItem";
 import { useSelector } from "react-redux";
 import PizzaItemSkeleton from "./PizzaItemSkeleton";
 
-function AllPizzas({ pizzasArray, isLoading }) {
-  let pizzasSortArray = pizzasArray;
-
+function AllPizzas() {
   const { popupSortName, searchValue, categories } = useSelector(
     (state) => state.filter
   );
+  const { pizzasArray, isLoading } = useSelector((state) => state.pizzas);
+
+  let pizzasSortArray = [...pizzasArray];
 
   if (popupSortName == "популярности") {
-    pizzasSortArray = pizzasArray.sort((a, b) => b.rating - a.rating);
+    pizzasSortArray = pizzasSortArray.sort((a, b) => b.rating - a.rating);
   } else if (popupSortName == "цене min") {
-    pizzasSortArray = pizzasArray.sort((a, b) => a.price - b.price);
+    pizzasSortArray = pizzasSortArray.sort((a, b) => a.price - b.price);
   } else if (popupSortName == "цене max") {
-    pizzasSortArray = pizzasArray.sort((a, b) => b.price - a.price);
+    pizzasSortArray = pizzasSortArray.sort((a, b) => b.price - a.price);
   }
 
   let pizzasFormattedArray = pizzasSortArray

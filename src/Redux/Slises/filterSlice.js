@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-const PopupArray = ["популярности", "цене min", "цене max"];
 
 export const filterSlice = createSlice({
   name: "filter",
   initialState: {
+    PopupArray: ["популярности", "цене min", "цене max"],
     popupBool: false,
-    popupSortName: PopupArray[0],
+    popupSortName: "популярности",
     searchValue: "",
     categories: 0,
     categoriesArray: [

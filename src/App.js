@@ -4,23 +4,26 @@ import Main from "./components/Main";
 import CartEmpty from "./components/CartEmpty";
 import Cart from "./components/Cart";
 import { Route, Routes } from "react-router-dom";
-import { React, useEffect, useState, createContext } from "react";
+import { React, useEffect, createContext } from "react";
+import { useDispatch } from "react-redux";
+import { ChangeIsLoading, ChangePizzasArray } from "./Redux/Slises/pizzasSlice";
 
 export const SearchContext = createContext();
 
 function App() {
-  const PopupArray = ["популярности", "цене min", "цене max"];
+  const dispatch = useDispatch();
+  // const PopupArray = ["популярности", "цене min", "цене max"];
 
-  const [pizzasArray, setPizzasArray] = useState([]);
-  const [isLoading, setLoading] = useState(true);
+  // const [pizzasArray, setPizzasArray] = useState([]);
+  // const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(true);
+    dispatch(ChangeIsLoading(true));
     fetch("http://localhost:3001/pizza", { method: "get" })
       .then((res) => res.json())
       .then((json) => {
-        setPizzasArray(json);
-        setLoading(false);
+        dispatch(ChangePizzasArray(json));
+        dispatch(ChangeIsLoading(false));
       });
   }, []);
 
@@ -30,16 +33,7 @@ function App() {
         <Header />
         <div className="content">
           <Routes>
-            <Route
-              path="/"
-              element={
-                <Main
-                  isLoading={isLoading}
-                  pizzasArray={pizzasArray}
-                  PopupArray={PopupArray}
-                />
-              }
-            />
+            <Route path="/" element={<Main />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/emptycart" element={<CartEmpty />} />
           </Routes>
