@@ -9,7 +9,6 @@ function Main({
   categoriesArray,
   categories,
   setCategories,
-  searchValue,
 }) {
   return (
     <div className="container">
@@ -22,7 +21,6 @@ function Main({
         <Sort />
       </div>
       <AllPizzas
-        searchValue={searchValue}
         categories={categories}
         pizzasArray={pizzasArray}
         isLoading={isLoading}

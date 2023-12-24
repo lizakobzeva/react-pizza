@@ -2,14 +2,11 @@ import React, { useContext } from "react";
 import PizzaItem from "./PizzaItem";
 import { useSelector } from "react-redux";
 import PizzaItemSkeleton from "./PizzaItemSkeleton";
-import { SearchContext } from "../App";
 
 function AllPizzas({ pizzasArray, isLoading, categories }) {
   let pizzasSortArray = pizzasArray;
 
-  const popupSortName = useSelector((state) => state.filter.popupSortName);
-
-  const { searchValue } = useContext(SearchContext);
+  const { popupSortName, searchValue } = useSelector((state) => state.filter);
 
   if (popupSortName == "популярности") {
     pizzasSortArray = pizzasArray.sort((a, b) => b.rating - a.rating);
