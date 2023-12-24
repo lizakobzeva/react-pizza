@@ -1,11 +1,16 @@
-import React, { useContext, useState } from "react";
-import { SearchContext } from "../App";
+import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ChangeSearchValue } from "../Redux/Slises/filterSlice";
 
 function Search() {
   const dispatch = useDispatch();
   const searchValue = useSelector((state) => state.filter.searchValue);
+  const inputRef = useRef();
+
+  const onClickClear = () => {
+    dispatch(ChangeSearchValue(""));
+    inputRef.current.focus();
+  };
   return (
     <div className="Search">
       <div className="icon">
@@ -45,7 +50,7 @@ function Search() {
           </svg>
         ) : (
           <svg
-            onClick={() => dispatch(ChangeSearchValue(""))}
+            onClick={() => onClickClear()}
             fill="none"
             height="24"
             viewBox="0 0 24 24"
@@ -61,6 +66,7 @@ function Search() {
       </div>
 
       <input
+        ref={inputRef}
         value={searchValue}
         onChange={(event) => dispatch(ChangeSearchValue(event.target.value))}
         type="text"
