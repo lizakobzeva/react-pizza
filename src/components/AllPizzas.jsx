@@ -3,10 +3,12 @@ import PizzaItem from "./PizzaItem";
 import { useSelector } from "react-redux";
 import PizzaItemSkeleton from "./PizzaItemSkeleton";
 
-function AllPizzas({ pizzasArray, isLoading, categories }) {
+function AllPizzas({ pizzasArray, isLoading }) {
   let pizzasSortArray = pizzasArray;
 
-  const { popupSortName, searchValue } = useSelector((state) => state.filter);
+  const { popupSortName, searchValue, categories } = useSelector(
+    (state) => state.filter
+  );
 
   if (popupSortName == "популярности") {
     pizzasSortArray = pizzasArray.sort((a, b) => b.rating - a.rating);

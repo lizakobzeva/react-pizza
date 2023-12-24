@@ -3,28 +3,14 @@ import Categories from "./Categories";
 import Sort from "./Sort";
 import AllPizzas from "./AllPizzas";
 
-function Main({
-  pizzasArray,
-  isLoading,
-  categoriesArray,
-  categories,
-  setCategories,
-}) {
+function Main({ pizzasArray, isLoading }) {
   return (
     <div className="container">
       <div className="content__top">
-        <Categories
-          categoriesArray={categoriesArray}
-          categories={categories}
-          setCategories={setCategories}
-        />
+        <Categories />
         <Sort />
       </div>
-      <AllPizzas
-        categories={categories}
-        pizzasArray={pizzasArray}
-        isLoading={isLoading}
-      />
+      <AllPizzas pizzasArray={pizzasArray} isLoading={isLoading} />
     </div>
   );
 }

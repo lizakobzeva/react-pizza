@@ -10,32 +10,9 @@ export const SearchContext = createContext();
 
 function App() {
   const PopupArray = ["популярности", "цене min", "цене max"];
-  const categoriesArray = [
-    {
-      index: 0,
-      title: "Все",
-    },
-    {
-      index: 1,
-      title: "Мясные",
-    },
-    {
-      index: 2,
-      title: "Вегетарианские",
-    },
-    {
-      index: 3,
-      title: "Гриль",
-    },
-    {
-      index: 4,
-      title: "Острые",
-    },
-  ];
 
   const [pizzasArray, setPizzasArray] = useState([]);
   const [isLoading, setLoading] = useState(true);
-  const [categories, setCategories] = useState(0);
 
   useEffect(() => {
     setLoading(true);
@@ -59,9 +36,6 @@ function App() {
                 <Main
                   isLoading={isLoading}
                   pizzasArray={pizzasArray}
-                  categoriesArray={categoriesArray}
-                  categories={categories}
-                  setCategories={setCategories}
                   PopupArray={PopupArray}
                 />
               }

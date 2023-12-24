@@ -7,6 +7,29 @@ export const filterSlice = createSlice({
     popupBool: false,
     popupSortName: PopupArray[0],
     searchValue: "",
+    categories: 0,
+    categoriesArray: [
+      {
+        index: 0,
+        title: "Все",
+      },
+      {
+        index: 1,
+        title: "Мясные",
+      },
+      {
+        index: 2,
+        title: "Вегетарианские",
+      },
+      {
+        index: 3,
+        title: "Гриль",
+      },
+      {
+        index: 4,
+        title: "Острые",
+      },
+    ],
   },
 
   reducers: {
@@ -19,11 +42,18 @@ export const filterSlice = createSlice({
     ChangeSearchValue: (state, action) => {
       state.searchValue = action.payload;
     },
+    ChangeCategories: (state, action) => {
+      state.categories = action.payload;
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { ChangePopupBool, ChangePopupSortName, ChangeSearchValue } =
-  filterSlice.actions;
+export const {
+  ChangePopupBool,
+  ChangePopupSortName,
+  ChangeSearchValue,
+  ChangeCategories,
+} = filterSlice.actions;
 
 export default filterSlice.reducer;
