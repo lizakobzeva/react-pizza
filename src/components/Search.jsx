@@ -1,14 +1,26 @@
-import React, { useRef } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ChangeSearchValue } from "../Redux/Slises/filterSlice";
+import { ChangeIsLoading } from "../Redux/Slises/pizzasSlice";
+import debounce from "lodash.debounce";
 
 function Search() {
+  const [inputValue, setInputValue] = useState("");
   const dispatch = useDispatch();
   const searchValue = useSelector((state) => state.filter.searchValue);
   const inputRef = useRef();
 
+  const updateSearchValue = useCallback(
+    debounce((event) => {
+      dispatch(ChangeIsLoading(false));
+      dispatch(ChangeSearchValue(event.target.value));
+    }, 300),
+    []
+  );
+
   const onClickClear = () => {
     dispatch(ChangeSearchValue(""));
+    setInputValue("");
     inputRef.current.focus();
   };
   return (
@@ -67,8 +79,11 @@ function Search() {
 
       <input
         ref={inputRef}
-        value={searchValue}
-        onChange={(event) => dispatch(ChangeSearchValue(event.target.value))}
+        value={inputValue}
+        onChange={(event) => (
+          updateSearchValue(event),
+          dispatch(ChangeIsLoading(true), setInputValue(event.target.value))
+        )}
         type="text"
         placeholder="Поиск пиццы..."
       />
