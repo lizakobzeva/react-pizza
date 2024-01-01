@@ -1,14 +1,29 @@
 import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
 import {
   ChangePopupBool,
   ChangePopupSortName,
 } from "../Redux/Slises/filterSlice";
+import { useRef } from "react";
 
 function Sort() {
   const dispatch = useDispatch();
+  const sortRef = useRef();
   const { popupBool, popupSortName, PopupArray } = useSelector(
     (state) => state.filter
   );
+  useEffect(() => {
+    const handleCLickOutside = (event) => {
+      if (!event.composedPath().includes(sortRef.current)) {
+        dispatch(ChangePopupBool(false));
+      }
+    };
+    document.body.addEventListener("click", handleCLickOutside);
+
+    return () => {
+      document.body.removeEventListener("click", handleCLickOutside);
+    };
+  }, []);
 
   let sortPopupArray = PopupArray.map((popup) => {
     return (
@@ -25,7 +40,7 @@ function Sort() {
   });
 
   return (
-    <div className="sort">
+    <div ref={sortRef} className="sort">
       <div className="sort__label">
         <svg
           width="10"
