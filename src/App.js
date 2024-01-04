@@ -1,8 +1,7 @@
 import Header from "./components/Header";
 import "./scss/app.scss";
 import Main from "./components/Main";
-import CartEmpty from "./components/CartEmpty";
-import Cart from "./components/Cart";
+import CartState from "./components/CartState";
 import { Route, Routes } from "react-router-dom";
 import { React, useEffect, createContext } from "react";
 import { useDispatch } from "react-redux";
@@ -34,8 +33,7 @@ function App() {
         <div className="content">
           <Routes>
             <Route path="/" element={<Main />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/emptycart" element={<CartEmpty />} />
+            <Route path="/cart" element={<CartState />} />
           </Routes>
         </div>
       </div>

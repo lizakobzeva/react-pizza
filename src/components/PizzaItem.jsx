@@ -1,9 +1,38 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AddPizzaInCartArray } from "../Redux/Slises/cartSlice";
 
-function PizzaItem({ title, price, doughwidth, diameter, img }) {
+function PizzaItem({ title, price, doughwidth, diameter, img, index }) {
   let [doughwidthActive, setDoughwidthActive] = useState(0);
   let [diameterActive, setDiameterActive] = useState(0);
   let [quantityPizzasInCart, setQuantityPizzasInCart] = useState(0);
+  const dispatch = useDispatch();
+
+  const { pizzasInCartArray } = useSelector((state) => state.cart);
+  const AddPizzas = () => {
+    let pizzaInCartArray = {
+      index: index,
+      title: title,
+      img: img,
+      diameter: diameter[diameterActive],
+      doughwidth: doughwidth[doughwidthActive],
+      count: 1,
+      price:
+        Math.floor(price * (1 + diameterActive / 5)) + doughwidthActive * 10,
+    };
+    setQuantityPizzasInCart(quantityPizzasInCart + 1);
+    dispatch(AddPizzaInCartArray(pizzaInCartArray));
+  };
+
+  let countThisTipePizzaFunction = () => {
+    let countThisTipePizza = 0;
+    pizzasInCartArray.forEach((pizza) => {
+      if (pizza.index == index) {
+        countThisTipePizza += pizza.count;
+      }
+    });
+    return countThisTipePizza;
+  };
 
   let doughwidthArray = doughwidth.map((active) => {
     return (
@@ -44,10 +73,7 @@ function PizzaItem({ title, price, doughwidth, diameter, img }) {
           {Math.floor(price * (1 + diameterActive / 5)) + doughwidthActive * 10}{" "}
           ₽
         </div>
-        <div
-          onClick={() => setQuantityPizzasInCart(quantityPizzasInCart + 1)}
-          className="button button--outline button--add"
-        >
+        <div onClick={AddPizzas} className="button button--outline button--add">
           <svg
             width="12"
             height="12"
@@ -61,7 +87,11 @@ function PizzaItem({ title, price, doughwidth, diameter, img }) {
             />
           </svg>
           <span>Добавить</span>
-          {quantityPizzasInCart != 0 ? <i>{quantityPizzasInCart}</i> : ""}
+          {countThisTipePizzaFunction() != 0 ? (
+            <i>{countThisTipePizzaFunction()}</i>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </div>
