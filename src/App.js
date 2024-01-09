@@ -2,28 +2,23 @@ import Header from "./components/Header";
 import "./scss/app.scss";
 import Main from "./components/Main";
 import CartState from "./components/CartState";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, json } from "react-router-dom";
 import { React, useEffect, createContext } from "react";
-import { useDispatch } from "react-redux";
-import { ChangeIsLoading, ChangePizzasArray } from "./Redux/Slises/pizzasSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  ChangeIsLoading,
+  ChangePizzasArray,
+  fetchPizzas,
+} from "./Redux/Slises/pizzasSlice";
 
 export const SearchContext = createContext();
 
 function App() {
   const dispatch = useDispatch();
-  // const PopupArray = ["популярности", "цене min", "цене max"];
-
-  // const [pizzasArray, setPizzasArray] = useState([]);
-  // const [isLoading, setLoading] = useState(true);
+  const { pizzasArray, status } = useSelector((state) => state.pizzas);
 
   useEffect(() => {
-    dispatch(ChangeIsLoading(true));
-    fetch("http://localhost:3001/pizza", { method: "get" })
-      .then((res) => res.json())
-      .then((json) => {
-        dispatch(ChangePizzasArray(json));
-        dispatch(ChangeIsLoading(false));
-      });
+    dispatch(fetchPizzas());
   }, []);
 
   return (

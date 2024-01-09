@@ -6,7 +6,7 @@ function AllPizzas() {
   const { popupSortName, searchValue, categories } = useSelector(
     (state) => state.filter
   );
-  const { pizzasArray, isLoading } = useSelector((state) => state.pizzas);
+  const { pizzasArray, status } = useSelector((state) => state.pizzas);
 
   let pizzasSortArray = [...pizzasArray];
 
@@ -29,14 +29,27 @@ function AllPizzas() {
 
   return (
     <div className="allPizzas">
-      <h2 className="content__title">Все пиццы</h2>
-      <div className="content__items">
-        {isLoading
-          ? [...new Array(8)].map((id) => {
-              return <PizzaItemSkeleton key={id} />;
-            })
-          : pizzasFormattedArray}
-      </div>
+      {status == "error" ? (
+        <div className="container--cart container">
+          <div class="cart cart--empty">
+            <h2>
+              Что-то пошло не так<icon>😕</icon>
+            </h2>
+            <p>Серверу нехорошо, попробуйте позднее</p>
+          </div>
+        </div>
+      ) : (
+        <>
+          <h2 className="content__title">Все пиццы</h2>
+          <div className="content__items">
+            {status == "loading"
+              ? [...new Array(8)].map((id) => {
+                  return <PizzaItemSkeleton key={id} />;
+                })
+              : pizzasFormattedArray}
+          </div>
+        </>
+      )}
     </div>
   );
 }

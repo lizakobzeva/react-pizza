@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ChangeCategories } from "../Redux/Slises/filterSlice";
 
-function Categories({ setCategories }) {
+function Categories({}) {
   const { categoriesArray, categories } = useSelector((state) => state.filter);
   const dispatch = useDispatch();
   let cetegoriFormattedArray = categoriesArray.map((categori) => {
